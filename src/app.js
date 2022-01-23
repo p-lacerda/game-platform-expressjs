@@ -1,12 +1,15 @@
 const express = require('express');
+const { engine } = require('express-handlebars');
 
 const app = express();
 
+app.set('views', (`${__dirname}/views`));
+app.engine('hbs', engine({ extname: '.hbs' }));
+app.set('view engine', 'hbs');
 app.use('/public', express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
-  // Send the file of homepage
-  res.sendFile(`${__dirname}/views/index.html`);
+  res.render('index');
 });
 
 const PORT = 3000;
